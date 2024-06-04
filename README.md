@@ -12,7 +12,7 @@
 ## 📢소개📢
 expo 와 reactNative로 만든 메모 어플입니다.
 이름을 입력하고 들어가면 메모를 입력 할 수 있습니다.
-
+메모장 crud가능
 
 ## 🔎How to🔎
 - zip파일 다운로드
@@ -28,4 +28,6 @@ expo 와 reactNative로 만든 메모 어플입니다.
 ![write](https://github.com/kingyjjy/react-practice-useState/assets/141803642/df237038-28c4-446b-887b-66ddd4be777c)
 ![memo](https://github.com/kingyjjy/react-practice-useState/assets/141803642/d633b968-c576-4bf3-a3c0-21fab5055e60)
 ![morepost](https://github.com/kingyjjy/react-practice-useState/assets/141803642/a02bc174-bdf6-4031-b8de-7ba553e081d8)
-
+![edit](https://github.com/kingyjjy/react-practice-useState/assets/141803642/61ce21f4-d642-4954-9bdb-a1795029704c)
+![editcomplete](https://github.com/kingyjjy/react-practice-useState/assets/141803642/e6b82ec6-a7a3-4589-8c26-fd561dbbd04d)
+![delete](https://github.com/kingyjjy/react-practice-useState/assets/141803642/0e33f873-49b3-46de-ae96-4e863f83113f)
