@@ -5,7 +5,7 @@ import RoundIconBtn from './RoundIconBtn'
 import { useNotes } from '../contexts/NoteProvider'
 import NoteInputModal from './NoteInputModal'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import {useHeaderHeight} from '@react-navigation/stack'
+
 
 
 const formatDate = (ms) => {
@@ -24,11 +24,57 @@ const NoteDetail = (props) => {
     const [showModal, setShowModal] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const {setNotes} = useNotes();
-    const headerHeight = useHeaderHeight();
+  
+
+    const deleteNote = async () => {
+        const result = await AsyncStorage.getItem('notes');
+        let notes = [];
+        if(result !== null) notes = JSON.parse(result);
+
+        const newNotes = notes.filter(n => n.id !== note.id);
+        setNotes(newNotes);
+        await AsyncStorage.setItem('notes', JSON.stringify(newNotes));
+        props.navigation.goBack();
+    };
+    const displayDeleteAlert = () => {
+        Alert.alert(
+            '정말로 삭제하시겠습니까?',
+            '',
+            [
+                { text:'삭제', onPress: deleteNote },
+                { text:'취소', onPress: () => console.log('삭제 취소') },
+            ],
+        );
+    };
+
+    const handleUpdate = async (title, desc, time) => {
+        const result = await AsyncStorage.getItem('notes');
+        let notes = [];
+        if(result !== null) notes = JSON.parse(result);
+
+        const newNotes = notes.map(n => {
+            if(n.id == note.id){
+                n.title = title;
+                n.desc = desc;
+                n.time = time;
+            }
+            return n;
+        });
+
+        setNotes(newNotes);
+        await AsyncStorage.setItem('notes', JSON.stringify(newNotes));
+        setNote({...note, title, desc, time});
+    };
+
+    const handleOnClose = () => setShowModal(false);
+    const openEditModal = () => {
+        setIsEdit(true);
+        setShowModal(true);
+    };
 
   return (
     <>
-        <ScrollView contentContainerStyle={[styles.container, {paddingTop:headerHeight}]}>
+        <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.time}>
                 ${formatDate(note.time)}
             </Text>
@@ -46,7 +92,8 @@ const NoteDetail = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: 15
+        paddingHorizontal: 15,
+        paddingTop:10,
     },
     time: {
         textAlign: 'right',
